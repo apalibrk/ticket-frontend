@@ -41,6 +41,7 @@
             <td>${{ ticket.price.toFixed(2) }}</td>
             <td>{{ ticket.status }}</td>
             <td>
+              <button class="btn btn-primary btn-sm" @click="buyTicket(ticket.id)">Buy</button>
               <button class="btn btn-warning btn-sm" @click="editTicket(ticket)">Edit</button>
               <button class="btn btn-danger btn-sm" @click="deleteTicket(ticket.id)">Delete</button>
             </td>
@@ -122,6 +123,10 @@
         this.newTicket.eventId = '';
         this.newTicket.seatNumber = '';
         this.newTicket.price = 0;
+      },
+      async buyTicket(ticketId) {
+        await this.$store.dispatch('buyTicket', ticketId);
+        this.$store.dispatch('fetchTickets');
       },
       editTicket(ticket) {
         this.editTicketData = { ...ticket };

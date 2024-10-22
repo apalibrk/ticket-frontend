@@ -46,6 +46,12 @@ export default createStore({
     },
     setOrganizers(state, organizers) {
       state.organizers = organizers;
+    },
+    UPDATE_TICKET_STATUS(state, { ticketId, status }) {
+      const ticket = state.tickets.find(t => t.id === ticketId);
+      if (ticket) {
+        ticket.status = status; // Update the status of the ticket to reflect the purchase
+      }
     }
   },
   actions: {
@@ -95,9 +101,15 @@ export default createStore({
       await api.deleteTicket(ticketId);
       dispatch('fetchTickets');
     },
-    async buyTicket({ dispatch }, ticketId) {
-      await api.buyTicket(ticketId);
-      dispatch('fetchTickets');
+    async buyTicket({ commit }, ticketId) {
+      try {
+        const response = await api.buyTicket(ticketId); // Call your API service to buy the ticket
+        commit('UPDATE_TICKET_STATUS', { ticketId, status: 'sold' }); // Update ticket status
+        return response.data; // Optionally return data if needed
+      } catch (error) {
+        console.error('Error buying ticket:', error.response ? error.response.data : error.message);
+        throw error; // Rethrow error to handle it in the component
+      }
     },
     logout({ commit }) {
       commit('clearAuthData');

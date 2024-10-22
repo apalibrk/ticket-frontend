@@ -41,7 +41,7 @@ export default {
     return apiClient.delete(`/tickets/${ticketId}`);
   },
   buyTicket(ticketId) {
-    return apiClient.post(`/tickets/${ticketId}/buy`);
+    return apiClient.put(`/tickets/${ticketId}/sell`);
   },
   updateEvent(id, event) {
     return apiClient.put(`/events/${id}`, event);
