@@ -1,30 +1,45 @@
 <template>
-    <div>
-      <h2>Login</h2>
-      <form @submit.prevent="login">
-        <div>
-          <label>Email:</label>
-          <input v-model="email" type="email" required />
+    <div class="login-container">
+      <h2 class="text-center mb-4">Login</h2>
+      <div class="card">
+        <div class="card-body">
+          <form @submit.prevent="login">
+            <div class="form-group">
+              <label for="email">Email:</label>
+              <input
+                v-model="email"
+                type="email"
+                id="email"
+                required
+                class="form-control"
+                placeholder="Enter your email"
+              />
+            </div>
+            <div class="form-group">
+              <label for="password">Password:</label>
+              <input
+                v-model="password"
+                type="password"
+                id="password"
+                required
+                class="form-control"
+                placeholder="Enter your password"
+              />
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Login</button>
+          </form>
         </div>
-        <div>
-          <label>Password:</label>
-          <input v-model="password" type="password" required />
-        </div>
-        <button type="submit">Login</button>
-        <div v-if="errorMessage" class="error">{{ errorMessage }}</div>
-      </form>
+      </div>
     </div>
   </template>
   
   <script>
-  
   export default {
-    name: 'UserLogin',
+    name: 'UserLogin', 
     data() {
       return {
         email: '',
-        password: '',
-        errorMessage: ''
+        password: ''
       };
     },
     methods: {
@@ -33,7 +48,7 @@
           await this.$store.dispatch('login', { email: this.email, password: this.password });
           this.$router.push('/dashboard');
         } catch (error) {
-          this.errorMessage = error.response ? error.response.data.message : 'Login failed';
+          alert('Invalid login credentials');
         }
       }
     }
@@ -41,7 +56,45 @@
   </script>
   
   <style scoped>
-  .error {
-    color: red;
+  .login-container {
+    max-width: 400px;
+    margin: 50px auto; 
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
+    border-radius: 8px;
+    background-color: #fff;
+  }
+  
+  .card {
+    border: none;
+    border-radius: 8px;
+  }
+  
+  .card-body {
+    padding: 20px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  label {
+    font-weight: bold;
+  }
+  
+  .btn {
+    border-radius: 8px;
+    padding: 10px;
+  }
+  
+  .btn-primary {
+    background-color: #007bff;
+    border: none;
+    color: white;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3;
   }
   </style>
+  
