@@ -27,7 +27,7 @@
   import api from '@/services/api';
   
   export default {
-    name: 'UserRegister', // Updated component name
+    name: 'UserRegister',
     data() {
       return {
         name: '',

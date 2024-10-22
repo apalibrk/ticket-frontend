@@ -6,7 +6,6 @@
       </ul>
       <button @click="createEvent">Create Event</button>
       <div v-if="showForm">
-        <!-- Event form goes here -->
         <button @click="closeForm">Close</button>
       </div>
     </div>
@@ -14,7 +13,7 @@
   
   <script>
   export default {
-    name: 'EventList', // Updated component name
+    name: 'EventList',
     data() {
       return {
         showForm: false,

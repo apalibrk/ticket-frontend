@@ -9,7 +9,7 @@
   
   <script>
   export default {
-    name: 'OrganizerList', // Updated component name
+    name: 'OrganizerList',
     computed: {
       organizers() {
         return this.$store.getters.organizers;
